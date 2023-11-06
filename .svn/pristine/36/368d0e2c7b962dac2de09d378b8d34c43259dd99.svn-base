@@ -1,0 +1,238 @@
+�밀번호가 일치합니다");
+		        $("#pwch").css("color",'blue');
+		        pwc = true;
+		    }
+		});
+		
+		$("#pw").keyup(function(){
+			     
+		    if($(this).val()!=$("#pw2").val()){
+		        $("#pwch").html("비밀번호가 다릅니다");
+		        $("#pwch").css("color",'red');
+		        pwc = false;
+		
+		    }else{
+		        $("#pwch").html("비밀번호가 일치합니다");
+		        $("#pwch").css("color",'blue');
+		        pwc = true;
+		    }
+		});
+		
+		$("#name").focusout(function(){
+			   if($('#name').val() == ""){
+				  
+				   $('#namech').text('*필수 정보입니다.');
+				   $('#namech').css('color', 'red');
+			     
+			   }else{
+			       namec = true;
+			   }
+			});
+			
+			
+		$("#email").focusout(function(){
+			   if($('#email').val() == ""){
+				   
+				   $('#emch').text('*필수 정보입니다.');
+				   $('#emch').css('color', 'red');
+					$(this).focus(); 
+					return false;
+			   }else{
+			       emailc = true;
+			       return true;
+			   }
+			});
+			
+		$("#phone").focusout(function(){
+		   if($('#phone').val() == ""){
+			   $('#phonech').text('*필수 정보입니다.');
+			   $('#phonech').css('color', 'red');
+		     
+		   }else{
+		       phonec = true;
+		   }
+		});
+		
+		
+		
+		$('#birth_date').blur(function(){
+			var dateStr = $(this).val();		
+		    var year = Number(dateStr.substr(0,4)); // 입력한 값의 0~4자리까지 (연)
+		    var month = Number(dateStr.substr(4,2)); // 입력한 값의 4번째 자리부터 2자리 숫자 (월)
+		    var day = Number(dateStr.substr(6,2)); // 입력한 값 6번째 자리부터 2자리 숫자 (일)
+		    var today = new Date(); // 날짜 변수 선언
+		    var yearNow = today.getFullYear(); // 올해 연도 가져옴
+			
+		    if (dateStr.length <=8) {
+				// 연도의 경우 1900 보다 작거나 yearNow 보다 크다면 false를 반환합니다.
+			    if (1900 > year || year > yearNow){
+			    	
+			    	$('#birth_check').text('생년월일을 확인해주세요 :)');
+					$('#birth_check').css('color', 'red');
+			    	
+			    }else if (month<1 || month>12) {
+			    		
+			    	$('#birth_check').text('생년월일을 확인해주세요 :)');
+					$('#birth_check').css('color', 'red'); 
+			    
+			    }else if (day<1 || day>31) {
+			    	
+			    	$('#birth_check').text('생년월일을 확인해주세요 :)');
+					$('#birth_check').css('color', 'red'); 
+			    	
+			    }else if ((month==4 || month==6 || month==9 || month==11) && day==31) {
+			    	 
+			    	$('#birth_check').text('생년월일을 확인해주세요 :)');
+					$('#birth_check').css('color', 'red'); 
+			    	 
+			    }else if (month == 2) {
+			    	 
+			       	var isleap = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+			       	
+			     	if (day>29 || (day==29 && !isleap)) {
+			     		
+			     		$('#birth_check').text('생년월일을 확인해주세요 :)');
+						$('#birth_check').css('color', 'red'); 
+			    	
+					}else{
+						$('#birth_check').text('');
+						birthJ = true;
+					}//end of if (day>29 || (day==29 && !isleap))
+			     	
+			    }else{
+			    	
+			    	$('#birth_check').text(''); 
+					birthJ = true;
+				}//end of if
+				
+				}else{
+					//1.입력된 생년월일이 8자 초과할때 :  auth:false
+					$('#birth_check').text('생년월일을 확인해주세요 :)');
+					$('#birth_check').css('color', 'red');  
+				}
+			}); 
+		
+		
+		
+      function execPostCode(){
+    new daum.Postcode({
+        oncomplete: function(data) {
+       
+            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+                // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+                // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+                var roadAddr = data.roadAddress; // 도로명 주소 변수
+               
+
+                // 법정동명이 있을 경우 추가한다. (법정리�		<img src="../img/메인.jpg" class="w-full" />
+			<div
+				class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+				<a href="#slide4" class="btn btn-circle">❮</a> <a href="#slide2"
+					class="btn btn-circle">❯</a>
+			</div>
+		</div>
+		<div id="slide2" class="carousel-item relative w-full">
+			<img src="../img/메인2.jpg" class="w-full" />
+			<div
+				class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+				<a href="#slide1" class="btn btn-circle">❮</a> <a href="#slide3"
+					class="btn btn-circle">❯</a>
+			</div>
+		</div>
+		<div id="slide3" class="carousel-item relative w-full">
+			<img src="../img/소개1.jpg" class="w-full" />
+			<div
+				class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+				<a href="#slide2" class="btn btn-circle">❮</a> <a href="#slide4"
+					class="btn btn-circle">❯</a>
+			</div>
+		</div>
+		<div id="slide4" class="carousel-item relative w-full">
+			<img src="../img/소개3.jpg" class="w-full" />
+			<div
+				class="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2">
+				<a href="#slide3" class="btn btn-circle">❮</a> <a href="#slide1"
+					class="btn btn-circle">❯</a>
+			</div>
+		</div>
+	</div>
+
+
+
+
+	<%
+		if (msg == null || msg.equals("")) {
+	%>
+	<%
+		} else {
+	%>
+
+	<div class="toast toast-top toast-center">
+  
+  <div class="alert alert-info" style="color: white;">
+    <span><%=msg%></span>
+  </div>
+  
+</div>
+
+<script>
+var count = 2;
+setInterval(function(){
+    count -= 1;
+    if (count > 0) {
+        $('#time').html(count);
+    } else {
+        $('.alert').fadeOut();
+    }
+}, 1000);
+</script>
+
+	<%
+		}
+	%>
+
+
+	<script>
+		(function() {
+			var w = window;
+			if (w.ChannelIO) {
+				return w.console.error("ChannelIO script included twice.");
+			}
+			var ch = function() {
+				ch.c(arguments);
+			};
+			ch.q = [];
+			ch.c = function(args) {
+				ch.q.push(args);
+			};
+			w.ChannelIO = ch;
+			function l() {
+				if (w.ChannelIOInitialized) {
+					return;
+				}
+				w.ChannelIOInitialized = true;
+				var s = document.createElement("script");
+				s.type = "text/javascript";
+				s.async = true;
+				s.src = "https://cdn.channel.io/plugin/ch-plugin-web.js";
+				var x = document.getElementsByTagName("script")[0];
+				if (x.parentNode) {
+					x.parentNode.insertBefore(s, x);
+				}
+			}
+			if (document.readyState === "complete") {
+				l();
+			} else {
+				w.addEventListener("DOMContentLoaded", l);
+				w.addEventListener("load", l);
+			}
+		})();
+
+		ChannelIO('boot', {
+			"pluginKey" : "2387f2e2-a8ef-4c5a-99e6-95f2c37e6632"
+		});
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+package kr.or.ddit.board.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
+
+import kr.or.ddit.board.service.BoardServiceImpl;
+import kr.or.ddit.board.service.IBoardService;
+import kr.or.ddit.board.vo.BoardVO;
+
+@MultipartConfig(fileSizeThreshold = 1024 * 1024 * 3, maxFileSize = 1024 * 1024 * 40)
+@WebServlet("/board/noticeList.do")
+public class NoticeListController extends HttpServlet{
+	
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		
+		IBoardService bdService = BoardServiceImpl.getInstance();
+		
+		List<BoardVO> ncList = bdService.getAllNotice();
+		
+		try {
+			String fileName = "";
+			for(Part part : req.getParts()){
+				
+				//fileName = getFileName(part);
+				fileName = part.getSubmittedFileName();
+				
+				// 폼필드가 아니거나 파일이 선택되어 있는 경우...
+				if(fileName != null && !fileName.equals("")) {
+					part.write("e:/D_Other/" + fileName); // 파일 업로드(저장) 처리
+					System.out.println("파일명 : " + fileName + " 저장 완료~");
+				}
+			}
+		}catch(Exception ex) {
+			ex.printStackTrace();
+		}
+		
+		req.setAttribute("ncList", ncList);
+		
+		RequestDispatcher rd = req.getRequestDispatcher("/views/board/noticeList.jsp");
+		rd.forward(req, resp);
+		
+		
+	}
+	
+	private String getFileName(Part part) {
+		
+		for(String content : part.getHeader("Content-Disposition").split(";")) {
+			if(content.trim().startsWith("filenam")){
+				return content
+						.substring(content.indexOf("=") + 1)
+						.trim()
+						.replace("\"", "");
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		doGet(req, resp);
+	}
+}
